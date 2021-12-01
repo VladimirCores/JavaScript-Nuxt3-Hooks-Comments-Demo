@@ -5,9 +5,14 @@ import PostVO from '~/model/vo/PostVO';
 import SettingsVO from '~/model/vo/SettingsVO';
 import UserVO from '~/model/vo/UserVO';
 
-const extractDataFromFetch = (fetch) => fetch?.value?.data?.value;
+const extractDataFromFetch = (fetch) => fetch?.value?.data?.value || fetch?.data;
+const storageEmulator = (storage = {}) => ({
+  setItem: (key, value) => storage[key] = value,
+  getItem: (key) => storage[key],
+});
 
-export const useSettings = () => useState(State.SETTINGS, () => new SettingsVO(window.localStorage));
+export const useSettings = () => useState(State.SETTINGS, () => new SettingsVO(
+  process.client ? window?.localStorage : storageEmulator()));
 
 export const usePost = () => {
   const formId = (id) => `${State.POST}-${id}`;
@@ -20,7 +25,7 @@ export const usePost = () => {
     fetchComments: (id, log = console.log('> usePost -> fetchComments')) =>
       fetch(`${useRuntimeConfig().API_URL}${Math.random() > 0.5 ? `/comments?postId=${id}` : `/posts/${id}/comments`}`).then(r => r.json())
         .then((comments, log = console.log('> \t', { comments, post: state.getPost(id) })) =>
-          ((state.getPost(id).value || state.getPost(id)).comments = comments, comments)),
+          ((state.getPost(id)?.value || state.getPost(id)).comments = comments, comments)),
     getPost: (id) => useState(formId(id)).value.data || new PostVO({}, {}, []),
   }
   return state;
