@@ -4,10 +4,16 @@ We recommend to look at the [documentation](https://v3.nuxtjs.org).
 
 ## Setup
 
-Make sure to install the dependencies
+Make sure to install the dependencies (prefer yarn)
 
 ```bash
 yarn install
+```
+
+Add .env file to the root of the project with:
+
+```
+API_URL=https://jsonplaceholder.typicode.com
 ```
 
 ## Development
