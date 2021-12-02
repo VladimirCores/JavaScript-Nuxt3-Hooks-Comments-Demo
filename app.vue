@@ -20,7 +20,6 @@ export default {
 </script>
 <script setup>
 const user = useUser();
-const client = process.client;
 const pending = useState('pending', () => true);
 if (process.client) {
   user.fetchUser(1).finally(() =>

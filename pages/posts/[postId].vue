@@ -1,5 +1,5 @@
 <template>
-  <Preloader v-if="pending" color="red"/>
+  <Preloader v-if="isPageLoading" color="red"/>
   <NuxtLayout v-else name="default">
     <template #header>
       <Breadcrumbs :current="`Post #${postId}`" :links="breadcrumbs"/>
@@ -48,6 +48,9 @@ export default {
     PostUserInfoModal,
   },
   computed: {
+    isPageLoading() {
+      return this.pending || !this.state.user.id || !this.state.post.id;
+    },
     getSelectedCommentId() {
       console.log('> this.$route.query.commentId', this.$route.query.commentId);
       return parseInt(this.$route.query.commentId || -1)
@@ -94,5 +97,4 @@ if (process.client) {
   if (settings.value.isAutoLoadComments && !post.getPost(postId).comments?.length)
     post.fetchComments(postId);
 }
-// const { pending, data: vo } = post.fetchPost(postId);
 </script>
