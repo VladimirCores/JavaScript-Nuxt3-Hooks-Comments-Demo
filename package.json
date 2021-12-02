@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "build": "cp -r ./* ./.output",
+    "start": "nuxi dev"
   },
   "devDependencies": {
     "@windicss/plugin-icons": "^1.0.2",
