@@ -10,6 +10,10 @@
     "nuxt-windicss": "^2.0.12",
     "nuxt3": "3.0.0-27303148.ac98373"
   },
+  "engines": {
+    "npm": ">=7.21.0",
+    "node": ">=14.17.5"
+  },
   "dependencies": {
     "daisyui": "^1.16.2"
   }
