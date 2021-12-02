@@ -1,5 +1,5 @@
 <template>
-  <Preloader v-if="pending" color="red"/>
+  <Preloader v-if="pending || !getPagesAmount()" color="red"/>
   <NuxtLayout v-else name="default">
     <template #header>
       <Breadcrumbs current="Home"/>
@@ -60,14 +60,17 @@ const ITEMS_PER_PAGE = 10;
 
 const settings = useSettings();
 const comments = useComments();
-const { pending } = comments.fetchComments();
 
-console.log('> Comments -> setup: pending =', pending.value);
+const pending = useState('pending', () => true);
+
+if (process.client) {
+  comments.fetchComments().finally(() => pending.value = false);
+  console.log('> Comments -> setup: pending =', pending.value);
+}
 
 const pageIndex = useState(LocalState.PAGE_INDEX, () => settings.value.selectedPageIndex);
 const getPageComments = () => comments.getPage(pageIndex.value, ITEMS_PER_PAGE);
 const getPagesAmount = () => Math.ceil(comments.getTotalAmount() / ITEMS_PER_PAGE);
-const getLastPageIndex = () => getPagesAmount() - 1;
 const getCurrentPageIndex = () => pageIndex.value + 1;
 
 </script>

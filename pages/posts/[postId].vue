@@ -4,12 +4,12 @@
     <template #header>
       <Breadcrumbs :current="`Post #${postId}`" :links="breadcrumbs"/>
       <PostInfoCard
-          :author="vo.user.name"
+          :author="state.user.name"
           :auto="settings.isAutoLoadComments"
-          :loaded="vo.comments.length > 0"
+          :loaded="state.comments.length > 0"
           :loading="isLoadingComments"
-          :message="vo.post.body"
-          :title="vo.post.title"
+          :message="state.post.body"
+          :title="state.post.title"
           @auto="onAutoTrigger"
           @back="onBackNavigate"
           @info="isInfoModalVisible = true"
@@ -17,13 +17,13 @@
       />
     </template>
     <PostCommentsTable
-        :comments="vo.comments"
+        :comments="state.comments"
         :selected-comment-id="getSelectedCommentId"
         class="mt-4"
     />
     <Preloader v-if="isLoadingComments"/>
     <PostUserInfoModal
-        :user="vo.user"
+        :user="state.user"
         :visible="isInfoModalVisible"
         @close="isInfoModalVisible = false"
     />
@@ -50,7 +50,10 @@ export default {
   computed: {
     getSelectedCommentId() {
       console.log('> this.$route.query.commentId', this.$route.query.commentId);
-      return this.$route.query.commentId || -1
+      return parseInt(this.$route.query.commentId || -1)
+    },
+    state() {
+      return this.post.getPost(this.postId);
     }
   },
   data: () => ({
@@ -61,7 +64,7 @@ export default {
   methods: {
     onAutoTrigger(value) {
       console.log('> Post Id -> onAutoTrigger', { value });
-      if (value && !this.vo.comments.length) {
+      if (value && !this.state.comments.length) {
         this.onLoadComments();
       }
       this.settings.isAutoLoadComments = value;
@@ -84,8 +87,12 @@ const post = usePost();
 const route = useRoute();
 const settings = useSettings();
 const { postId } = route.params;
-console.log('> Post Id -> setup', { postId, isAutoLoadComments: settings.value.isAutoLoadComments });
-const { pending, data: vo } = post.fetchPost(postId);
-if (settings.value.isAutoLoadComments && !vo.comments?.length)
-  post.fetchComments(postId);
+const pending = useState('pending', () => true);
+if (process.client) {
+  console.log('> Post Id -> setup', { postId, isAutoLoadComments: settings.value.isAutoLoadComments });
+  post.fetchPost(postId).finally(() => pending.value = false);
+  if (settings.value.isAutoLoadComments && !post.getPost(postId).comments?.length)
+    post.fetchComments(postId);
+}
+// const { pending, data: vo } = post.fetchPost(postId);
 </script>

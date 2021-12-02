@@ -22,6 +22,9 @@ export default {
   computed: {
     cssSize() {
       return `${this.size}px`
+    },
+    cssSizeHalfNegative() {
+      return `-${this.size / 2}px`
     }
   }
 }
@@ -34,6 +37,8 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
+  margin-top: v-bind(cssSizeHalfNegative);
+  margin-left: v-bind(cssSizeHalfNegative);
 }
 
 .icon-spinner::before, .icon-spinner::after {

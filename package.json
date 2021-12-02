@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "start": "nuxi dev"
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@windicss/plugin-icons": "^1.0.2",

@@ -13,7 +13,7 @@ class SettingsVO {
   }
 
   get selectedPageIndex() {
-    return parseString(this.storage.getItem(SettingsVO.KEYS.SELECTED_PAGE_INDEX)) || 0;
+    return parseInt(this.storage.getItem(SettingsVO.KEYS.SELECTED_PAGE_INDEX)) || 0;
   }
 
   set selectedPageIndex(value) {
