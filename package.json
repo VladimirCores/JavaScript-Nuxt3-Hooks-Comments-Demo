@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
+    "gcp-build": "yarn build",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {

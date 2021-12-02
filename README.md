@@ -1,6 +1,11 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Demo Comments
 
-We recommend to look at the [documentation](https://v3.nuxtjs.org).
+![](preview.gif)
+
+### Test it here:
+
+1. Vercel: https://javascript-nuxt3-hooks-comments-demo-26i7njvkb-dqvsra.vercel.app/
+2. AppEngine: https://nuxt3-demo-comments.appspot.com/
 
 ## Setup
 

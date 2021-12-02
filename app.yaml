@@ -1,6 +1,9 @@
 runtime: nodejs14
 service: default
 
+env_variables:
+  API_URL: "https://jsonplaceholder.typicode.com"
+
 manual_scaling:
   instances: 1
 resources:

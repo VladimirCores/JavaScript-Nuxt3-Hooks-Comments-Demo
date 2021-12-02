@@ -5,9 +5,10 @@ export default defineNuxtConfig({
   ssr: true,
   bridge: false,
   // target: 'static',
-  // nitro: {
-  //   preset: 'lambda'
-  // },
+  nitro: {
+    preset: process.env.LAMBDA ? 'lambda' : 'server',
+    timing: true
+  },
   publicRuntimeConfig: {
     API_URL: process.env.API_URL,
   },
