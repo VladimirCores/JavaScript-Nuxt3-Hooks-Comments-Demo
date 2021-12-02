@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   bridge: false,
   // target: 'static',
   nitro: {
-    preset: process.env.LAMBDA ? 'lambda' : 'server',
+    preset: process.env.NITRO ? process.env.NITRO : '',
     timing: true
   },
   publicRuntimeConfig: {
