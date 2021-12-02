@@ -11,10 +11,11 @@
     "nuxt3": "latest"
   },
   "engines": {
-    "npm": ">=7.x",
-    "node": ">=14.x"
+    "npm": "7.x",
+    "node": "14.x"
   },
   "dependencies": {
-    "daisyui": "^1.16.2"
+    "daisyui": "^1.16.2",
+    "nuxt3": "latest"
   }
 }
