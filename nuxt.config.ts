@@ -2,9 +2,9 @@ import { defineNuxtConfig } from 'nuxt3'
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  // ssr: true,
+  ssr: false,
   // bridge: false,
-  // target: 'static',
+  target: 'static',
   nitro: {
     preset: 'lambda'
   },
