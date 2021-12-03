@@ -5,7 +5,7 @@
 ### Test it here:
 
 1. Vercel: https://javascript-nuxt3-hooks-comments-demo.vercel.app/
-2. AppEngine: https://nuxt3-demo-comments.appspot.com/
+2. AppEngine: https://nuxt3-demo-comments.appspot.com/ (deprecated because of price)
 
 ## Setup
 

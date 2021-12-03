@@ -25,6 +25,5 @@ if (process.client) {
   user.fetchUser(1).finally(() =>
       pending.value = false);
 }
-// const { pending } = user.fetchUser(1);
 console.log('> App -> setup: pending =', pending.value);
 </script>

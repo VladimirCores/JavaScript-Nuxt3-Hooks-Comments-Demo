@@ -3,7 +3,20 @@ services:
   nuxt3-demo-comments:
     build: .
     environment:
-      - PORT=3000
+      - PORT=8001
       - API_URL=https://jsonplaceholder.typicode.com
     ports:
-      - "3000:3000"
+      - "8001:8001"
+
+networks:
+  default:
+    external: false
+    name: demo-comments-default
+
+#networks:
+#  nuxt3-demo-comments-network:
+#    driver_opts:
+#      com.docker.network.bridge.host_binding_ipv4: "172.20.0.1"
+#    ipam:
+#      config:
+#        - subnet: "172.20.110.0/16"
