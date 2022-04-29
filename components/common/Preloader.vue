@@ -16,7 +16,7 @@ export default {
     size: {
       type: Number,
       required: false,
-      default: 40
+      default: 80
     }
   },
   computed: {
