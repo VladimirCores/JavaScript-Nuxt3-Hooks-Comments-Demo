@@ -19,7 +19,7 @@
             <tr
               v-for="(comment, index) in comments"
               :key="comment.id"
-              :class="{ 'bg-base-100': selectedCommentId === comment.id}"
+              :class="{ 'bg-gray-100': checkSelectedComment(comment)}"
             >
               <td class="px-6 py-4">
                 {{ index + 1 }}
@@ -39,6 +39,8 @@
 </template>
 
 <script lang="ts">
+import CommentVO from '~/model/vo/CommentVO';
+
 export default defineComponent({
   name: 'PostCommentsTable',
   props: {
@@ -49,6 +51,13 @@ export default defineComponent({
     selectedCommentId: {
       type: Number,
       required: true,
+    },
+  },
+  methods: {
+    checkSelectedComment(comment: CommentVO): boolean {
+      const result = this.selectedCommentId === comment.id;
+      // console.log('> PostCommentsTable -> checkSelectedComment:', this.selectedCommentId, comment.id, result);
+      return result;
     },
   },
 });

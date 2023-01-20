@@ -19,11 +19,11 @@ class CommentVO {
   }
 
   private readonly _name: String;
-  get id(): String {
+  get id(): number {
     return this._id;
   }
 
-  private readonly _id: String;
+  private readonly _id: number;
   constructor(data: any) {
     this._id = data.id;
     this._name = data.name;
