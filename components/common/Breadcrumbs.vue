@@ -1,29 +1,31 @@
 <template>
   <div class="text-sm breadcrumbs">
     <ul>
-      <li v-for="link in links">
-        <NuxtLink :to="link.to">{{ link.title }}</NuxtLink>
+      <li v-for="link in links" :key="link.to">
+        <NuxtLink :to="link.to">
+          {{ link.title }}
+        </NuxtLink>
       </li>
       <li>{{ current }}</li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+export default defineComponent({
   name: 'Breadcrumbs',
   props: {
     links: {
       type: Array,
       required: false,
-      default: null
+      default: null,
     },
     current: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-}
+});
 </script>
 
 <style scoped>

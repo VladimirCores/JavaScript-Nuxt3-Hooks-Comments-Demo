@@ -4,27 +4,33 @@
       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
-          <tr>
-            <th v-for="item in ['№', 'Name', 'Message']"
+            <tr>
+              <th
+                v-for="item in ['№', 'Name', 'Message']"
+                :key="item"
                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                scope="col">
-              {{ item }}
-            </th>
-          </tr>
+                scope="col"
+              >
+                {{ item }}
+              </th>
+            </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="(comment, index) in comments" :key="comment.id"
-              :class="{ 'bg-base-100': selectedCommentId == comment.id}">
-            <td class="px-6 py-4">
-              {{ index + 1 }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ comment.name }}
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-900">
-              {{ comment.body }}
-            </td>
-          </tr>
+            <tr
+              v-for="(comment, index) in comments"
+              :key="comment.id"
+              :class="{ 'bg-base-100': selectedCommentId === comment.id}"
+            >
+              <td class="px-6 py-4">
+                {{ index + 1 }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ comment.name }}
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-900">
+                {{ comment.body }}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -32,20 +38,20 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+export default defineComponent({
   name: 'PostCommentsTable',
   props: {
     comments: {
       type: Array,
-      required: true
+      required: true,
     },
     selectedCommentId: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
-}
+});
 </script>
 
 <style scoped>

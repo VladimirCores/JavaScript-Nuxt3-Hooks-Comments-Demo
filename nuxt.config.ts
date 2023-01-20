@@ -1,18 +1,21 @@
-import { defineNuxtConfig } from 'nuxt3'
-
-// https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
+import { defineNuxtConfig } from 'nuxt/config';
+import eslint from 'vite-plugin-eslint';
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
-  bridge: false,
-  // target: 'static',
-  nitro: {
-    preset: process.env.NITRO ? process.env.NITRO : '',
-    timing: true
-  },
-  publicRuntimeConfig: {
-    API_URL: process.env.API_URL,
-  },
-  buildModules: [
+  ssr: false,
+  modules: [
     'nuxt-windicss',
   ],
-})
+  experimental: {
+    externalVue: true,
+    payloadExtraction: true
+  },
+  runtimeConfig: {
+    public: {
+      API_URL: 'https://jsonplaceholder.typicode.com',
+    },
+  },
+  vite: {
+    plugins: [eslint()],
+  },
+});

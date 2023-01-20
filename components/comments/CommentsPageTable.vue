@@ -4,35 +4,40 @@
       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
-          <tr>
-            <th v-for="item in ['Id', 'Email', 'Name']"
+            <tr>
+              <th
+                v-for="item in ['Id', 'Email', 'Name']"
+                :key="item"
                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                scope="col">
-              {{ item }}
-            </th>
-            <th class="relative px-6 py-3" scope="col">
-              <span class="sr-only">Read</span>
-            </th>
-          </tr>
+                scope="col"
+              >
+                {{ item }}
+              </th>
+              <th class="relative px-6 py-3" scope="col">
+                <span class="sr-only">Read</span>
+              </th>
+            </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="comment in comments" :key="comment.id">
-            <td class="px-6 py-4 whitespace-nowrap">
-              {{ comment.id }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-              {{ comment.email }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ comment.name }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <NuxtLink :to="`/posts/${comment.postId}?commentId=${comment.id}`"
-                        class="text-accent hover:text-secondary">
-                <i class="icon-chevron-right-o"></i>
-              </NuxtLink>
-            </td>
-          </tr>
+            <tr v-for="comment in comments" :key="comment.id">
+              <td class="px-6 py-3 whitespace-nowrap">
+                {{ comment.id }}
+              </td>
+              <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                {{ comment.email }}
+              </td>
+              <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+                {{ comment.name }}
+              </td>
+              <td class="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
+                <NuxtLink
+                  :to="formatCommentUrl(comment)"
+                  class="text-accent hover:text-secondary"
+                >
+                  <i class="icon-chevron-right-o" />
+                </NuxtLink>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -40,16 +45,23 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import CommentVO from '~/model/vo/CommentVO';
+
+export default defineComponent({
   name: 'CommentsPageTable',
   props: {
     comments: {
       type: Array,
-      required: true
+      required: true,
     },
   },
-}
+  methods: {
+    formatCommentUrl(comment: CommentVO) {
+      return `/posts/${comment.postId}?commentId=${comment.id}`;
+    },
+  },
+});
 </script>
 
 <style scoped>

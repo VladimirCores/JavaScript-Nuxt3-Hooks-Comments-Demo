@@ -1,4 +1,4 @@
-# Nuxt 3 Demo Comments
+# Nuxt 3 / Vue 3 / Composable API Demo Comments
 
 ![](preview.gif)
 
@@ -15,12 +15,6 @@ Make sure to install the dependencies (prefer yarn)
 yarn install
 ```
 
-Add .env file to the root of the project with:
-
-```
-API_URL=https://jsonplaceholder.typicode.com
-```
-
 ## Development
 
 Start the development server on http://localhost:3000
@@ -34,7 +28,7 @@ yarn dev
 Build the application for production:
 
 ```bash
-yarn build
+yarn generate
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
+Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment).

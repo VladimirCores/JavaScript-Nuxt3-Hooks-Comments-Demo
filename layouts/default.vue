@@ -1,16 +1,18 @@
 <template>
   <div class="container mx-auto">
     <div class="header mt-2">
-      <slot name="header"/>
+      <slot name="header" />
     </div>
     <div class="body mt-4">
-      <slot/>
+      <div class="flex flex-col w-full">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: 'default'
-}
+  name: 'Default',
+};
 </script>

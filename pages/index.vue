@@ -1,60 +1,40 @@
 <template>
-  <Preloader v-if="pending || !getPagesAmount()" color="red"/>
+  <Preloader v-if="pending" color="red" />
   <NuxtLayout v-else name="default">
     <template #header>
-      <Breadcrumbs current="Home"/>
+      <Breadcrumbs current="Home" />
       <CommentsPageStatistics
-          :index="getCurrentPageIndex()"
-          :total="getPagesAmount()"
-          @selected="onPaginationSelected"
+        :index="getCurrentPageIndex()"
+        :total="getPagesAmount"
+        @selected="onPaginationSelected"
       />
     </template>
-    <div class="flex flex-col">
-      <CommentsPageTable
-          :comments="getPageComments()"
-      />
+    <div class="flex-row">
+      <CommentsPageTable :comments="getPageComments()" />
     </div>
-    <div class="w-full mt-8">
+    <div class="flex flex-row mt-8 justify-center">
       <Pagination
-          :delta="5"
-          :index="pageIndex"
-          :total="getPagesAmount()"
-          @selected="onPaginationSelected"
+        :delta="5"
+        :index="pageIndex"
+        :total="getPagesAmount"
+        @selected="onPaginationSelected"
       />
     </div>
   </NuxtLayout>
 </template>
 
-<script>
-import Breadcrumbs from '/components/common/Breadcrumbs';
-import Preloader from '/components/common/Preloader';
-import Pagination from '/components/common/Pagination';
-import CommentsPageStatistics from '/components/comments/CommentsPageStatistics';
-import CommentsPageTable from '/components/comments/CommentsPageTable';
+<script lang="ts">
 
-export default {
-  name: 'CommentsPage',
-  layout: false,
-  components: {
-    Breadcrumbs,
-    CommentsPageStatistics,
-    CommentsPageTable,
-    Pagination,
-    Preloader
-  },
-  methods: {
-    onPaginationSelected(index) {
-      this.pageIndex = index;
-      this.settings.selectedPageIndex = index;
-    }
-  }
-}
 </script>
 
-<script setup>
-const LocalState = {
-  PAGE_INDEX: 'pageIndex',
-}
+<script setup lang="ts">
+import Breadcrumbs from '~/components/common/Breadcrumbs.vue';
+import Preloader from '~/components/common/Preloader.vue';
+import Pagination from '~/components/common/Pagination.vue';
+import CommentsPageStatistics from '~/components/comments/CommentsPageStatistics.vue';
+import CommentsPageTable from '~/components/comments/CommentsPageTable.vue';
+
+import { useComments, useSettings } from '~/composables/states';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -63,14 +43,22 @@ const comments = useComments();
 
 const pending = useState('pending', () => true);
 
-if (process.client) {
-  comments.fetchComments().finally(() => pending.value = false);
-  console.log('> Comments -> setup: pending =', pending.value);
-}
+console.log('> Comments -> setup: pending =', pending.value);
 
-const pageIndex = useState(LocalState.PAGE_INDEX, () => settings.value.selectedPageIndex);
+const pageIndex = useState('pageIndex', () => settings.value.selectedPageIndex);
 const getPageComments = () => comments.getPage(pageIndex.value, ITEMS_PER_PAGE);
-const getPagesAmount = () => Math.ceil(comments.getTotalAmount() / ITEMS_PER_PAGE);
+const getPagesAmount = computed(() => Math.ceil(comments.getTotalAmount() / ITEMS_PER_PAGE));
 const getCurrentPageIndex = () => pageIndex.value + 1;
 
+const onPaginationSelected = (index: number) => {
+  pageIndex.value = index;
+  settings.value.selectedPageIndex = index;
+};
+
+onMounted(() => {
+  comments.fetchComments().finally(() => {
+    console.log('> Comments -> onMounted: pending =', pending.value);
+    pending.value = false;
+  });
+});
 </script>

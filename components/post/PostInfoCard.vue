@@ -1,48 +1,50 @@
 <template>
   <div class="card shadow">
-    <div class="card-body">
-      <h2 class="card-title">{{ title }}</h2>
-      <p>{{ message }}</p>
-      <b v-if="author" class="self-end gray-300 mt-4">
-        <small class="mr-2">Author:</small>
-        <button class="btn btn-sm btn-link btn-outline drawer-button" @click="$emit('info')">{{ author }}</button>
-      </b>
-      <div class="justify-between card-actions">
-        <button class="btn glass" @click="$emit('back')">
-          <i class="icon-chevron-left-o mr-2"></i>Back
+    <div class="card-body flex-col">
+      <div class="flex-row">
+        <button class="btn btn-link btn-sm btn-circle hover:text-white" @click="$emit('back')">
+          <i class="icon-chevron-left-o" />
         </button>
-        <button
+      </div>
+      <h2 class="card-title">
+        {{ title }}
+      </h2>
+      <p>{{ message }}</p>
+      <div class="flex justify-between card-actions">
+        <b v-if="author" class="self-start gray-300 mt-4">
+          <small class="mr-2 text-gray-500">Author: <span class="text-black">{{ author }}</span></small>
+          <button class="btn btn-xs btn-outline drawer-button hover:text-white" @click="$emit('info')">show info</button>
+        </b>
+        <div class="flex flex-col">
+          <button
             :class="{ 'loading': loading }"
             :disabled="loaded"
-            class="btn btn-link"
-            @click="$emit('load')">
-          Load comments
-        </button>
-        <div class="form-control float-right">
-          <label class="cursor-pointer label">
-            <span class="label-text mr-3 text-sm text-gray-400">Load automatically</span>
-            <input :checked="auto" class="toggle" type="checkbox" @change="$emit('auto', $event.target.checked)">
-          </label>
+            class="btn btn-warning btn-md hover:text-white"
+            @click="$emit('load')"
+          >
+            Load comments
+          </button>
+          <button
+            class="btn-xs mt-2"
+            :class="{'text-gray-400': !auto}"
+            @click="onLoadAutoClicked"
+          >
+            Load comments automatically ({{ auto ? 'enabled' : 'disabled' }})
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+export default defineComponent({
   name: 'PostInfoCard',
-  emits: {
-    back: null,
-    load: null,
-    info: null,
-    auto: value => value,
-  },
   props: {
     author: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     title: {
       type: String,
@@ -55,18 +57,24 @@ export default {
     auto: {
       type: Boolean,
       required: false,
-      default: false,
     },
     loading: {
       type: Boolean,
       required: false,
-      default: false,
     },
     loaded: {
       type: Boolean,
       required: false,
-      default: false,
     },
-  }
-}
+  },
+  emits: {
+    back: null,
+    load: null,
+    info: null,
+    auto: null,
+  },
+  methods: {
+    onLoadAutoClicked() { this.$emit('auto', !this.auto); },
+  },
+});
 </script>
