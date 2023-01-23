@@ -28,12 +28,6 @@
 </script>
 
 <script setup lang="ts">
-import Breadcrumbs from '~/components/common/Breadcrumbs.vue';
-import Preloader from '~/components/common/Preloader.vue';
-import Pagination from '~/components/common/Pagination.vue';
-import CommentsPageStatistics from '~/components/comments/CommentsPageStatistics.vue';
-import CommentsPageTable from '~/components/comments/CommentsPageTable.vue';
-
 import { useComments, useSettings } from '~/composables/states';
 
 const ITEMS_PER_PAGE = 10;

@@ -32,12 +32,6 @@
 <script setup lang="ts">
 import { onMounted } from '#imports';
 
-import Breadcrumbs from '~/components/common/Breadcrumbs.vue';
-import Preloader from '~/components/common/Preloader.vue';
-import PostInfoCard from '~/components/post/PostInfoCard.vue';
-import PostCommentsTable from '~/components/post/PostCommentsTable.vue';
-import PostUserInfoModal from '~/components/post/PostUserInfoModal.vue';
-
 import PostVO from '~/model/vo/PostVO';
 
 const post = usePost();
