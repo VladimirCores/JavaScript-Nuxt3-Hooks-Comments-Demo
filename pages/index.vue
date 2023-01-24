@@ -9,9 +9,7 @@
         @selected="onPaginationSelected"
       />
     </template>
-    <div class="flex-row">
-      <CommentsPageTable :comments="getPageComments()" />
-    </div>
+    <CommentsPageTable class="flex-row" :comments="getPageComments()" />
     <div class="flex flex-row mt-8 justify-center">
       <Pagination
         :delta="5"
@@ -24,7 +22,9 @@
 </template>
 
 <script lang="ts">
-
+import Pagination from '@/components/common/Pagination.vue';
+import Breadcrumbs from '@/components/common/Breadcrumbs.vue';
+import Preloader from '@/components/common/Preloader.vue';
 </script>
 
 <script setup lang="ts">

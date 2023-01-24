@@ -29,6 +29,12 @@
     />
   </NuxtLayout>
 </template>
+
+<script lang="ts">
+import Breadcrumbs from '@/components/common/Breadcrumbs.vue';
+import Preloader from '@/components/common/Preloader.vue';
+</script>
+
 <script setup lang="ts">
 import { onMounted } from '#imports';
 
